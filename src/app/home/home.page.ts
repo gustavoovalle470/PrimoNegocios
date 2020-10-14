@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionManagerService } from '../services/user/session-manager.service';
 import { UserService } from '../services/user/user.service';
 import { UIAlertService } from '../UITools/uialert.service';
-import { User } from '../models/user';
 
 @Component({
   selector: 'app-home',
@@ -11,37 +11,66 @@ import { User } from '../models/user';
 })
 export class HomePage {
 
-  user: User;
+  @ViewChild('usernameInput') usernameInput;
+  @ViewChild('passwordInput') passwordInput;
+  @ViewChild('usernameItem') usernameItem;
+  @ViewChild('passwordItem') passwordItem;
 
   constructor(public alert : UIAlertService,
               public router: Router,
-              public userService: UserService) {
+              public userService: UserService,
+              public session : SessionManagerService) {
               }
   
   login(username : string, password : string){
-    if(username.length==0 || password.length==0){
-      this.alert.putMsgError('Se requiere un valor', 'El usuario y/o contraseña no pueden estar vacios. Ingrese su usario y/o contraseña para contrinuar');
-    }else{
-      this.getUser(username, password);
-      if(!this.user){
-        this.alert.putMsgError("El usuario y/o contraseña no son válidos. Verifique e intente nuevamente", "Error al inicar sesión");
-      }else{
-        this.router.navigate(['/dashboard']);
-      }
+    if(this.validateUsername(username) && this.validatePassword(password)){
+      this.userService.getUser(username, password).subscribe(data=>{
+        this.session.user_in_session=data;
+        this.doLogin();
+      });
     }
   }
 
-  validateUsername(username: string){
+  validateUsername(username: string): boolean{
     if(username.length!=0 && (!username.includes("@") || !username.includes(".com"))){
-      this.alert.putMsgError('El formato del nombre de usuario no es valido. Verifique e intente nuevamente','Error de formato');
+      this.usernameItem.color="danger";
+      this.usernameInput.setFocus();
+      this.alert.putMsgError('El formato del nombre de usuario no es valido. Verifique e intente nuevamente');
+      return false;
+    }else if(username.length==0){
+      this.usernameItem.color="danger";
+      this.usernameInput.setFocus();
+      this.alert.putMsgError('El campo usuario no puede estar vacio.');
+      return false;
+    }else{
+      this.usernameItem.color="ligth";
+    }
+    return true;
+  }
+
+  validatePassword(password: string): boolean{
+    if(password.length==0){
+      this.passwordItem.color="danger";
+      this.passwordInput.setFocus();
+      this.alert.putMsgError('El campo contraseña no puede estar vacio.');
+      return false;
+    }
+    return true;
+  }
+
+  private doLogin(){
+    this.returnToNormality();
+    if(!this.session.user_in_session){
+      this.alert.putMsgError("El usuario y/o contraseña no son válidos. Verifique e intente nuevamente");
+    }else{
+      this.router.navigate(['/dashboard']);
     }
   }
 
-  getUser(username:string, password:string) {
-    this.userService.getUser(username, password);
-    this.user = this.userService.user;
-    if(!this.userService.user){
-      console.log("Usuario obtenido: "+this.userService.user);
-    }
+  private returnToNormality(){
+    this.usernameInput.value="";
+    this.passwordInput.value="";
+    this.usernameItem.color="ligth";
+    this.passwordItem.color="ligth";
   }
 }

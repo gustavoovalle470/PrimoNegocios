@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from './../../models/user';
 import { PrimoURL } from 'src/app/constants/primo-url';
-import { User } from 'src/app/models/user';
+import { Observable } from 'rxjs';
 /**
  * Esta clase maneja todos las operaciones que se puede realizar para 
  * los usuarios del sistema.
@@ -12,10 +13,8 @@ import { User } from 'src/app/models/user';
 export class UserService {
 
   // URL a invocar, en esta se hacen los reemplazos.
-  urlInk:string='';
-  //Usuario recuperado del llamado al WS.
-  public user: User;
   primourl:PrimoURL;
+
   constructor(private client: HttpClient) {
     this.primourl=new PrimoURL();
   }
@@ -25,20 +24,12 @@ export class UserService {
    * @param username nombre de usuario cargado por el usuario del aplicativo.
    * @param password contraseña ingresada por el usuario
    */
-  getUser(username:string, password:string){
-    this.urlInk=this.primourl.PR_LOGIN_URL;
-    this.urlInk=this.urlInk.replace('username', username);
-    this.urlInk=this.urlInk.replace('password', password);
-    this.urlInk=this.urlInk.replace('usrtype', '1');
-    console.log("URL WS: "+this.urlInk);
-    return new Promise(resolve => {
-      this.client.get(this.urlInk).subscribe(data => {
-        this.user = Object.assign(new User(), data);
-        resolve(data);
-        console.log(this.user.strUsuario);
-      }, err => {
-        console.log(err);
-      });
-    });
+  getUser (username:string, password:string): Observable<User>{
+    var URL=this.primourl.PR_LOGIN_URL;
+    URL=URL.replace('username', username);
+    URL=URL.replace('password', password);
+    URL=URL.replace('usrtype', '1');
+    console.log("URL WS: "+URL);
+    return this.client.get<User>(URL);
   }
 }
