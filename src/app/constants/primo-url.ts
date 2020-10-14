@@ -17,4 +17,5 @@ export class PrimoURL {
      * 3. Tipo 1 para negocios, 0 para usuarios.
      */ 
     public PR_LOGIN_URL:string=this.restServerAccess+'PrimoApp/login/username/password/usrtype';
+    
 }
