@@ -1,9 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div id="primoLogo">
+    <img src="assets/Primo.png"/>
+    <p>El vinculo que nos une...</p>
+  </div>
+  <form [formGroup] ="registroForm" (ngSubmit)="saveUser()">
+    <div id="container">
+      <ion-item color="ligth">
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input formControlName="emailControl" type="text"></ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <small class="text-dager ion-padding" *ngIf="errorControl.emailControl.errors?.pattern">
+          Ingrese un correo electronico valido
+        </small>
+      </ion-text>
+		  <ion-item color="ligth">
+			  <ion-label position="floating">Contraseña</ion-label>
+			  <ion-input formControlName="passControl" type="password"></ion-input>
+		  </ion-item>
+		  <ion-item color="ligth">
+			  <ion-label position="floating">Repita la contraseña</ion-label>
+			  <ion-input formControlName="otherPassControl" type="password"></ion-input>
+		  </ion-item>
+		  <ion-item color="ligth">
+        <ion-label>Acepta los terminos y condiciones</ion-label>
+          <ion-checkbox slot="end" formControlName="terminosControl"></ion-checkbox>
+      </ion-item>
+      <ion-button expand="block" type="submit" [disabled]="!registroForm.valid">Guardar</ion-button>
+    </div>
+  </form>
 </ion-content>

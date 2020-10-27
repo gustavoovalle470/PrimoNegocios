@@ -3,17 +3,24 @@
     <img src="assets/Primo.png"/>
     <p>El vinculo que nos une...</p>
   </div>
-  <div id="container">
-    <ion-item #usernameItem color="ligth">
-      <ion-label position="floating">Usuario</ion-label>
-      <ion-input #usernameInput type="text" #username (ionBlur)="validateUsername(username.value)"></ion-input>
-    </ion-item>
-    <ion-item #passwordItem color="ligth">
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input #passwordInput type="password" #password></ion-input>
-    </ion-item>
-    <ion-button color="medium" expand="block" (click)="login(username.value, password.value)">INICIAR SESIÓN</ion-button>
-    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</ion-router-link></p>
-    <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿Haz olvidado tu contraseña?</ion-router-link></p>
-  </div>
+  <form [formGroup] ="loginForm" (ngSubmit)="login()">
+    <div id="container">
+      <ion-item color="ligth">
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input formControlName="emailControl" type="text"></ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <small class="text-dager ion-padding" *ngIf="errorControl.emailControl.errors?.pattern">
+          Ingrese un correo electronico valido
+        </small>
+      </ion-text>
+      <ion-item color="ligth">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input formControlName="passControl" type="password"></ion-input>
+      </ion-item>
+      <ion-button color="medium" expand="block" (click)="login()" [disabled]="!loginForm.valid">INICIAR SESIÓN</ion-button>
+      <p><ion-router-link color="medium" href="/register" style="font-size: 10px; font:italic;">¿No tienes cuenta? Crea una ahora!</ion-router-link></p>
+      <p><ion-router-link color="medium" href="#" style="font-size: 10px; font:italic;">¿Haz olvidado tu contraseña?</ion-router-link></p>
+    </div>
+  </form>
 </ion-content>

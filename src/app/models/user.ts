@@ -1,17 +1,12 @@
+/**
+ * Clase que describe un usuario de la base de datos PRIMO.
+ */
 export class User {
-    idUsuario:      String;
-    intTipoUsuario: BigInteger;
-    strUsuario:     String;
-    strPassword:    String;
-    intNumIntentos: BigInteger;
-    bitActivo:      boolean;
-
-    constructor(idUsuario, intTipoUsuario, strUsuario, strPassword, intNumIntentos, bitActivo){
-        this.idUsuario=idUsuario;
-        this.intTipoUsuario=intTipoUsuario;
-        this.strUsuario=strUsuario;
-        this.strPassword=strPassword;
-        this.intNumIntentos=intNumIntentos;
-        this.bitActivo=bitActivo;
-    }
+    /** Atributos de Clase **/
+    idUsuario:number;
+    strUsuario :string;
+    strPassword: string;
+    intNumIntentos:number;
+    bitActivo:number;
+    intTipoUsuario:number;
 }
