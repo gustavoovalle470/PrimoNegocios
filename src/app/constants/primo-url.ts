@@ -22,4 +22,14 @@ export class PrimoURL {
      * URL de invocacion del servicio de registro de usuarios
      */ 
     public PR_NEWUSER_URL:string=this.restServerAccess+'usuario';
+
+    /**
+     * URL de invocacion del servicio de registro de empresa
+     */ 
+    public PR_NEWCOMPANY_URL:string=this.restServerAccess+'empresa';
+
+    /**
+     * URL de consulta de empresa.
+     */
+    public PR_COMPANY_URL:string=this.restServerAccess+'empresa/userid';
 }

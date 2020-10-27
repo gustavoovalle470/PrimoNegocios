@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import { UserService } from '../services/user/user.service';
 import { UIAlertService } from '../UITools/uialert.service';
 import { Router } from '@angular/router';
+import { Primoconst } from '../constants/primoconst';
 
 
 function validaPassword(control1 : AbstractControl, control2 : AbstractControl):{[Key:string]: boolean}|null {
@@ -25,6 +26,7 @@ export class RegisterPage implements OnInit {
   registroForm : FormGroup;
   newUser : User;
   errorMessage: string;
+  constants: Primoconst;
 
   get errorControl(){
     return this.registroForm.controls;
@@ -33,7 +35,9 @@ export class RegisterPage implements OnInit {
   constructor(private userService : UserService, 
               private fb : FormBuilder,
               private alert : UIAlertService,
-              private router : Router) { }
+              private router : Router) { 
+                this.constants= new Primoconst();
+              }
 
   ngOnInit() {
     this.registroForm = this.fb.group({
@@ -52,7 +56,7 @@ export class RegisterPage implements OnInit {
       strUsuario : this.registroForm.get('emailControl').value,
       intNumIntentos : 0,
       bitActivo: 1,
-      intTipoUsuario : 1
+      intTipoUsuario : this.constants.USER_BUSINESS
     }
 
     const result = validaPassword(this.registroForm.get('passControl'), this.registroForm.get('otherPassControl'));

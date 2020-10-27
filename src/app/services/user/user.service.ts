@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PrimoURL } from 'src/app/constants/primo-url';
 import { User } from 'src/app/models/user';
-import { map, catchError } from 'rxjs/operators';
 import { Primoconst } from 'src/app/constants/primoconst';
 
 
@@ -40,9 +39,7 @@ export class UserService {
     var URL=this.primourl.PR_LOGIN_URL;
     URL=URL.replace('username', username);
     URL=URL.replace('password', password);
-    URL=URL.replace('usrtype', ''+this.constants.USER_PUBLIC);
-    alert(URL);
-    console.log("URL WS: "+URL);
+    URL=URL.replace('usrtype', ''+this.constants.USER_BUSINESS);
     return this.client.get<User>(URL);
   }
 
