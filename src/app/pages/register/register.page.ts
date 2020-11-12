@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../models/user';
-import { UserService } from '../services/user/user.service';
-import { UIAlertService } from '../UITools/uialert.service';
 import { Router } from '@angular/router';
-import { Primoconst } from '../constants/primoconst';
+import { Primoconst } from 'src/app/constants/primoconst';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user/user.service';
+import { UIAlertService } from 'src/app/UITools/uialert.service';
 
 
 function validaPassword(control1 : AbstractControl, control2 : AbstractControl):{[Key:string]: boolean}|null {

@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SessionManagerService } from '../services/user/session-manager.service';
-import { UserService } from '../services/user/user.service';
-import { UIAlertService } from '../UITools/uialert.service';
+import { SessionManagerService } from 'src/app/services/user/session-manager.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { UIAlertService } from 'src/app/UITools/uialert.service';
 
 function validaPassword(control : AbstractControl):{[Key:string]: boolean}|null {
   let _passControl = control.value;
@@ -48,7 +48,7 @@ export class HomePage implements OnInit{
         this.doLogin();
       });
     }else{
-      this.alert.putMsgError("La contraseña no es valida.");
+      this.alert.putMsgError("El usuariio y/o la contraseña no son validos.");
     }
   }
 
@@ -57,6 +57,8 @@ export class HomePage implements OnInit{
       this.alert.putMsgError("El usuario y/o contraseña no son válidos. Verifique e intente nuevamente");
     }else{
       this.router.navigate(['/dashboard']);
+      this.loginForm.get('emailControl').setValue("");
+      this.loginForm.get('passControl').setValue("");
     }
   }
 }

@@ -1,0 +1,23 @@
+<ion-content [fullscreen]="true">
+  <div id="primoLogo">
+    <img src="assets/CompanyReg.png"/>
+    <p>Queremos saber mas de tu empresa, agreguemos algunos datos:</p>
+  </div>
+  <form [formGroup] ="registerCompForm" (ngSubmit)="createCompany()">
+    <div id="container">
+      <ion-item color="ligth">
+        <ion-label position="floating">Nombre de tu empresa:</ion-label>
+        <ion-input formControlName="strRazonSocialControl" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">NIT:</ion-label>
+        <ion-input formControlName="strIdentificacionControl" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">Fecha de fundación:</ion-label>
+        <ion-datetime formControlName="dtmFechaFundacionControl"></ion-datetime>
+      </ion-item>
+      <ion-button color="medium" expand="block" (click)="createCompany()" [disabled]="!registerCompForm.valid">SIGUIENTE</ion-button>
+    </div>
+  </form>
+</ion-content>

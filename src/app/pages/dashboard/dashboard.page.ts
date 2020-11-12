@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CompanyService } from '../services/company/company.service';
-import { SessionManagerService } from '../services/user/session-manager.service';
-import { UIAlertService } from '../UITools/uialert.service';
+import { CompanyService } from 'src/app/services/company/company.service';
+import { SessionManagerService } from 'src/app/services/user/session-manager.service';
+import { UIAlertService } from 'src/app/UITools/uialert.service';
 
 @Component({
   selector: 'app-dashboard',
