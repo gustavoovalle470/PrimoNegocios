@@ -1,0 +1,22 @@
+<ion-content [fullscreen]="true">
+  <div id="primoLogo">
+    <img src="assets/CompanyReg.png"/>
+    <p>Que te parece si cargas el logo de tu emrpesa:</p>
+  </div>
+  <form [formGroup] ="registerLogoCompForm">
+    <div id="container">
+      <ion-button color="medium" expand="block" (click)="putLogo()" >CARGAR LOGO</ion-button>
+      <ion-item color="ligth">
+        <ion-input formControlName="strRazonSocialControl" type="text" disabled="true"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-input formControlName="strIdentificacionControl" type="text" disabled="true"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-datetime formControlName="dtmFechaFundacionControl" disabled="true"></ion-datetime>
+      </ion-item>
+      <ion-button color="medium" (click)="goBack()">ATRAS</ion-button>
+      <ion-button color="medium" (click)="registerCompany()">SIGUIENTE</ion-button>
+    </div>
+  </form>
+</ion-content>

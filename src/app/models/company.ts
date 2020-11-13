@@ -1,4 +1,4 @@
-import { Domain } from './domain';
+import { Domain } from 'domain';
 import { User } from './user';
 
 /**
@@ -10,6 +10,6 @@ export class Company {
     strRazonSocial: string;
     dtmFechaFundacion: Date;
     imgLogo: Blob;
-    user: User;
-    dominio:Domain;
+    myUsuario: User;
+    myDominio:Domain;
 }

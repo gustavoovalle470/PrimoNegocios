@@ -27,7 +27,14 @@ const routes: Routes = [
     path: 'register-company',
     loadChildren: () => import('./pages/register/register-company/register-company.module').then( m => m.RegisterCompanyPageModule)
   },
-
+  {
+    path: 'register-company-logo',
+    loadChildren: () => import('./pages/register/register-company-logo/register-company-logo.module').then( m => m.RegisterCompanyLogoPageModule)
+  },
+  {
+    path: 'register-contact',
+    loadChildren: () => import('./pages/register/register-contact/register-contact.module').then( m => m.RegisterContactPageModule)
+  }
 ];
 
 @NgModule({

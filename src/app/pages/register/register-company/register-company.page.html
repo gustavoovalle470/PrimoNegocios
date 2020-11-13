@@ -10,7 +10,13 @@
         <ion-input formControlName="strRazonSocialControl" type="text"></ion-input>
       </ion-item>
       <ion-item color="ligth">
-        <ion-label position="floating">NIT:</ion-label>
+        <ion-label position="floating">Tipo de identificación:</ion-label>
+        <ion-select formControlName="strTipoIdentificacionControl">
+          <ion-select-option *ngFor="let domain of domains">{{domain.strDescripcion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">Identificación:</ion-label>
         <ion-input formControlName="strIdentificacionControl" type="text"></ion-input>
       </ion-item>
       <ion-item color="ligth">
