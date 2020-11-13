@@ -25,7 +25,7 @@ export class ContactServiceService {
    */
   getContact(comapny: Company){
     var URL=this.primourl.PR_GETCONTACT_URL;
-    URL=URL.replace('empresaId', ""+comapny.idEmpresa);
+    URL=URL.replace('IdEmpresa', ""+comapny.idEmpresa);
     console.log("URL WS: "+URL);
     return this.client.get<Contact>(URL);
   }
