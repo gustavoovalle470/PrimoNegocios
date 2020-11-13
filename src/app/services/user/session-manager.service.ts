@@ -3,6 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import { Company } from 'src/app/models/company';
+import { Contact } from 'src/app/models/contact';
 import { User } from 'src/app/models/user';
 
 /**
@@ -16,6 +17,7 @@ export class SessionManagerService {
   /** Atributos de Clase **/
   user_in_session:User;
   user_company:Company;
+  comapny_contact:Contact;
 
   /**
    * Constructor Vacio

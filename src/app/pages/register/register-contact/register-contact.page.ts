@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Domain } from 'domain';
+import { ContactServiceService } from 'src/app/services/company/contact-service.service';
+import { DomainServiceService } from 'src/app/services/domain/domain-service.service';
 import { SessionManagerService } from 'src/app/services/user/session-manager.service';
 import { UIAlertService } from 'src/app/UITools/uialert.service';
 
@@ -12,11 +15,14 @@ import { UIAlertService } from 'src/app/UITools/uialert.service';
 export class RegisterContactPage implements OnInit {
   
   registerContactForm : FormGroup;
+  domains: Domain[];
 
   constructor(private alert : UIAlertService,
     private router: Router,
     private fb : FormBuilder,
-    private session : SessionManagerService) { 
+    private session : SessionManagerService,
+    private domainService: DomainServiceService,
+    private contactService: ContactServiceService) { 
     }
     
   get errorControl(){
@@ -25,9 +31,21 @@ export class RegisterContactPage implements OnInit {
   
   ngOnInit() {
     this.registerContactForm = this.fb.group({
-      strRazonSocialControl : ['', Validators.required],
+      strNombreControl : ['', Validators.required],
+      strApellidoControl : ['', Validators.required],
+      strTipoIdentificacionControl : ['', Validators.required],
       strIdentificacionControl : ['', Validators.required],
-      dtmFechaFundacionControl : ['', Validators.required]});
+      strDireccionControl : ['', Validators.required],
+      strTelefonoControl : ['', Validators.required],
+      strEmailControl : ['', Validators.required],
+      dtmFechaNacimientoControl : ['', Validators.required]});
+    this.domainService.getDomain(2)
+      .subscribe(data=>{
+        console.log(data);
+      this.domains=data;
+      console.log(this.domains);
+      this.registerContactForm.get('strEmailControl').setValue(this.session.user_in_session.strUsuario);
+});
   }
   
   goBack(){
@@ -35,6 +53,45 @@ export class RegisterContactPage implements OnInit {
   }
 
   registerContact(){
-    
+    console.log(this.session.user_company);
+    this.session.comapny_contact = {
+      idContacto:         0,
+      strIdentificacion:  this.registerContactForm.get('strIdentificacionControl').value,
+      strNombre:          this.registerContactForm.get('strNombreControl').value,
+      strApellido:        this.registerContactForm.get('strApellidoControl').value,
+      strDireccion:       this.registerContactForm.get('strDireccionControl').value,
+      strTelefono:        this.registerContactForm.get('strTelefonoControl').value,
+      strEmail:           this.registerContactForm.get('strEmailControl').value,
+      dtmFechaNacimiento: this.registerContactForm.get('dtmFechaNacimientoControl').value,
+      myEmpresa:          this.session.user_company,
+      myDominio:          this.getDocumentType(this.registerContactForm.get('strTipoIdentificacionControl').value)
+    }
+    console.log(this.session.comapny_contact);
+    this.contactService.newContact(this.session.comapny_contact).subscribe(data => {
+      if(!data['succes']){
+        this.alert.putMsgError( data['response']);
+      return;  
+      }
+    },
+    err => {
+      this.alert.putMsgError( err.response);
+      return;
+    },
+    () => {
+      this.alert.putMsgInfo('Su contacto se registro correctamente');
+      this.router.navigate(['dashboard']);
+    });
+    this.contactService.getContact(this.session.user_company).subscribe(data=>{
+      this.session.comapny_contact=data;
+    });
+  }
+
+  getDocumentType(strTipoId:string):Domain{
+    for(let domain of this.domains){
+      if(domain['strDescripcion'] === strTipoId){
+        return domain;
+      }
+    }
+    return null
   }
 }

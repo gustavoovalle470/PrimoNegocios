@@ -6,16 +6,38 @@
   <form [formGroup] ="registerContactForm" (ngSubmit)="registerContact()">
     <div id="container">
       <ion-item color="ligth">
-        <ion-label position="floating">Nombre de tu empresa:</ion-label>
-        <ion-input formControlName="strRazonSocialControl" type="text"></ion-input>
+        <ion-label position="floating">Nombre:</ion-label>
+        <ion-input formControlName="strNombreControl" type="text"></ion-input>
       </ion-item>
       <ion-item color="ligth">
-        <ion-label position="floating">NIT:</ion-label>
+        <ion-label position="floating">Apellido:</ion-label>
+        <ion-input formControlName="strApellidoControl" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">Tipo de identificación:</ion-label>
+        <ion-select formControlName="strTipoIdentificacionControl">
+          <ion-select-option *ngFor="let domain of domains">{{domain.strDescripcion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">Identificacion:</ion-label>
         <ion-input formControlName="strIdentificacionControl" type="text"></ion-input>
       </ion-item>
       <ion-item color="ligth">
-        <ion-label position="floating">Fecha de fundación:</ion-label>
-        <ion-datetime formControlName="dtmFechaFundacionControl"></ion-datetime>
+        <ion-label position="floating">Direccion:</ion-label>
+        <ion-input formControlName="strDireccionControl" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">Telefono:</ion-label>
+        <ion-input formControlName="strTelefonoControl" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">Email:</ion-label>
+        <ion-input formControlName="strEmailControl" type="text"></ion-input>
+      </ion-item>
+      <ion-item color="ligth">
+        <ion-label position="floating">Fecha de nacimiento:</ion-label>
+        <ion-datetime formControlName="dtmFechaNacimientoControl"></ion-datetime>
       </ion-item>
       <ion-button color="medium" (click)="goBack()">ATRAS</ion-button>
       <ion-button color="medium" expand="block" (click)="registerContact()" [disabled]="!registerContactForm.valid">FINALIZAR</ion-button>

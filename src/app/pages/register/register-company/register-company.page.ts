@@ -15,7 +15,6 @@ import { UIAlertService } from 'src/app/UITools/uialert.service';
 export class RegisterCompanyPage implements OnInit {
 
   registerCompForm : FormGroup;
-
   domains: Domain[];
 
   constructor(private alert : UIAlertService,

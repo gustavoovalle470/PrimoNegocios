@@ -46,7 +46,6 @@ export class RegisterCompanyLogoPage implements OnInit {
   }
 
   registerCompany(){
-    console.log(this.session.user_company);
     this.companyService.newCompany(this.session.user_company).subscribe(data => {
       if(!data['succes']){
         this.alert.putMsgError( data['response']);
@@ -59,6 +58,9 @@ export class RegisterCompanyLogoPage implements OnInit {
     },
     () => {
       this.alert.putMsgInfo('La empresa se creó correctamente');
+      this.companyService.getCompany(this.session.user_in_session).subscribe(data=>{
+        this.session.user_company=data;
+      });
       this.router.navigate(['register-contact']);
     });
   }

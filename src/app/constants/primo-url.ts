@@ -35,4 +35,8 @@ export class PrimoURL {
     public PR_COMPANY_URL:string=this.restServerAccess+'empresa/userid';
 
     public PR_GETDOMAIN_URL:string=this.restServerAccess+'dominio/domainId';
+
+    public PR_NEWCONTACT_URL:string=this.restServerAccess+'contacto';
+
+    public PR_GETCONTACT_URL:string=this.restServerAccess+'contacto/IdEmpresa';
 }
