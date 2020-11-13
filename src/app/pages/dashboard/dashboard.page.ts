@@ -20,10 +20,12 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.alert.putMsgInfo("Bienvenido "+this.session.user_in_session.strUsuario);
-    this.getUserConfig();
+    if(!this.session.user_company){
+      this.registerCompany();
+    }
   }
 
-  goToHome(){
+  logout(){
     this.session.logout();
     this.router.navigate(['/home']);
   }

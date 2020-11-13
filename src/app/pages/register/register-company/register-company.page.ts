@@ -1,8 +1,7 @@
-import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Domain } from 'domain';
+import { Domain } from 'src/app/models/domain';
 import { DomainServiceService } from 'src/app/services/domain/domain-service.service';
 import { SessionManagerService } from 'src/app/services/user/session-manager.service';
 import { UIAlertService } from 'src/app/UITools/uialert.service';

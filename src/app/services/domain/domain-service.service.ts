@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Domain } from 'domain';
+import { Domain } from 'src/app/models/domain';
 import { PrimoURL } from 'src/app/constants/primo-url';
 import { Primoconst } from 'src/app/constants/primoconst';
 
